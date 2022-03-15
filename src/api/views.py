@@ -11,17 +11,25 @@ from trie import Trie
 # Create your views here.
 
 def demande_musique(request, pseudo=None):
-    musique = "megalovania"
-    lien = "http://localhost/Undertale_-_Megalovania%5bConConverter.com%5d.mp3"
-    dico = {musique: lien}
-    return JsonResponse(dico)
+    with open("amis.json", "r") as f:
+        amis = json.load(f)
+        
+    with open("musique.json", "r") as f:
+        dico_musique = json.load(f)
+
+    chef = amis.get(pseudo)
+
+    if chef == None:
+        return HttpResponse("Faux", request)
+    
+    musique = dico_musique.get(chef)
+
+    return JsonResponse({musique: f"http:51.91.251.170:8080/{musique}.mp3"})
 
 @csrf_exempt
 def upload(request, pseudo=None):
     if request.method == "POST":
-        print(pseudo)
         lien = request.POST.get("lien")
-        print(lien)
         Convertir(lien)
         Trie(pseudo)
         return HttpResponse("OK", request)
