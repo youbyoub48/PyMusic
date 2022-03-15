@@ -1,7 +1,7 @@
 import requests, urllib.request, vlc, time
 
 def Download():
-    r = requests.get("http://127.0.0.1:8000/api")
+    r = requests.get("http://51.91.251.170/api/get")
     print(r.status_code)
     dico = r.json()
 
