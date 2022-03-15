@@ -2,7 +2,7 @@ from download import Download
 from ajout import Ajout
 from upload import Upload
 
-pseudo = input("quel est-votre pseudo")
+pseudo = input("quel est-votre pseudo:")
 mode = int(input("quel mode ? 1-2:"))
 
 if mode == 1:

@@ -3,6 +3,7 @@ from django.shortcuts import render, HttpResponse
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
+import time
 
 
 from convertisseur import Convertir
@@ -24,7 +25,7 @@ def demande_musique(request, pseudo=None):
     
     musique = dico_musique.get(chef)
 
-    return JsonResponse({musique: f"http:51.91.251.170:8080/{musique}.mp3"})
+    return JsonResponse({musique: f"http://51.91.251.170:8080/{musique}.mp3"})
 
 @csrf_exempt
 def upload(request, pseudo=None):

@@ -15,7 +15,7 @@ def Convertir(lien):
     browser.find_element_by_xpath('//*[@id="submit-button"]').click()
     sleep(3)
     browser.switch_to.window(browser.window_handles[0])
-    sleep(2)
+    sleep(10)
     browser.find_element_by_xpath('//*[@id="downloadButton"]').click()
     sleep(1)
     browser.switch_to.window(browser.window_handles[0])

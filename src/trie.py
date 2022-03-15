@@ -8,12 +8,14 @@ def Trie(pseudo):
     musique = fichier[0].replace(PATH,"")
     musique = musique.replace(".mp3","")
     musique = musique.replace("/","")
+    #musique = musique.replace(" ","_")
     print(musique)
 
     with open("musique.json", "w") as f:
         save = {pseudo: musique}
-        json.dump(save)
+        json.dump(save, f)
 
+    #os.rename(fichier[0], os.path.join(PATH, f"{musique}.mp3"))
     shutil.copy(fichier[0], "/var/www/html")
     os.remove(fichier[0])
 

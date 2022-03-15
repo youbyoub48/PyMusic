@@ -7,7 +7,13 @@ def Download(pseudo):
 
     for element in dico:
         musique = element
-        urllib.request.urlretrieve(dico[musique], f"{musique}.mp3")
+        lien = str(dico[musique])
+        lien = lien.replace(" ","%20")
+        lien = lien.replace("[","%5b")
+        lien = lien.replace("]","%5d")
+        print(lien)
+        urllib.request.urlretrieve(lien, f"{musique}.mp3")
+        time.sleep(2)
 
     p = vlc.MediaPlayer(f"{musique}.mp3")
     p.play()
@@ -19,4 +25,4 @@ def Download(pseudo):
 
 
 if __name__ == "__main__":
-    Download(pseudo="test")
+    Download(pseudo="youbyoub2")
