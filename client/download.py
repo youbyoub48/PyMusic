@@ -13,7 +13,7 @@ def Download(pseudo):
         lien = lien.replace("]","%5d")
         print(lien)
         urllib.request.urlretrieve(lien, f"{musique}.mp3")
-        time.sleep(2)
+        time.sleep(10)
 
     p = vlc.MediaPlayer(f"{musique}.mp3")
     p.play()
@@ -25,4 +25,4 @@ def Download(pseudo):
 
 
 if __name__ == "__main__":
-    Download(pseudo="youbyoub2")
+    Download(pseudo="test")
