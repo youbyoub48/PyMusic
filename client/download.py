@@ -16,3 +16,7 @@ def Download():
     Secondes = Millisecondes*0.001
     print(Secondes)
     time.sleep(Secondes)
+
+
+if __name__ == "__main__":
+    Download()
