@@ -1,9 +1,9 @@
 from http.client import OK
-from django.shortcuts import render, HttpResponse
+from django import db
+from django.shortcuts import HttpResponse
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-import json
-import time
+import json, os
 
 
 from convertisseur import Convertir
@@ -36,7 +36,29 @@ def upload(request, pseudo=None):
         return HttpResponse("OK", request)
 
 def ajout_amis(request, pseudo=None, pseudo2=None):
-    dico = {pseudo2:pseudo}
-    with open("amis.json", "w") as f:
-        json.dump(dico,f)
-    return HttpResponse("OK", request)
+
+    if not os.path.exists("json/amis.json"):
+        db_amis ={pseudo:[pseudo2]}
+
+        with open("json/amis.json", "w") as f:
+            json.dump(db_amis,f, indent=4)
+        return HttpResponse("OK", request)
+
+    else:
+        with open("json/amis.json", "r") as f:
+            db_amis = json.load(f)
+        liste_amis = db_amis.get(pseudo, False)
+        
+        if not liste_amis:
+            print("marche1")
+            db_amis[pseudo] = [pseudo2]
+
+        else:
+            print("marche2")
+            liste_amis.append(pseudo2)
+            db_amis[pseudo] = liste_amis
+               
+        with open("json/amis.json", "w") as f:
+            json.dump(db_amis, f, indent=4)
+
+        return HttpResponse("OK", request)
