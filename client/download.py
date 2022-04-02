@@ -1,7 +1,7 @@
 import requests, urllib.request, vlc, time
 
-def Download(pseudo):
-    r = requests.get(f"http://51.91.251.170/api/get/pseudo={pseudo}")
+def Download(ip, pseudo):
+    r = requests.get(f"http://{ip}/api/get/pseudo={pseudo}")
     print(r.status_code)
     dico = r.json()
 
@@ -25,4 +25,4 @@ def Download(pseudo):
 
 
 if __name__ == "__main__":
-    Download(pseudo="test")
+    Download(ip="127.0.0.1:8000", pseudo="test")

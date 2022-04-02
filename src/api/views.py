@@ -12,17 +12,17 @@ from trie import Trie
 # Create your views here.
 
 def demande_musique(request, pseudo=None):
-    with open("amis.json", "r") as f:
-        amis = json.load(f)
-        
+    with open("friends.json", "r") as f:
+        friends = json.load(f)
+
     with open("musique.json", "r") as f:
         dico_musique = json.load(f)
 
-    chef = amis.get(pseudo)
+    chef = friends.get(pseudo)
 
-    if chef == None:
+    if chef is None:
         return HttpResponse("Faux", request)
-    
+
     musique = dico_musique.get(chef)
 
     return JsonResponse({musique: f"http://51.91.251.170:8080/{musique}.mp3"})
@@ -35,30 +35,29 @@ def upload(request, pseudo=None):
         Trie(pseudo)
         return HttpResponse("OK", request)
 
-def ajout_amis(request, pseudo=None, pseudo2=None):
+def add_friends(request, pseudo=None, pseudo2=None):
+    # sourcery skip: hoist-statement-from-if, swap-if-else-branches, use-named-expression
 
-    if not os.path.exists("json/amis.json"):
-        db_amis ={pseudo:[pseudo2]}
+    if not os.path.exists("json/friends.json"):
+        db_friends ={pseudo:[pseudo2]}
 
-        with open("json/amis.json", "w") as f:
-            json.dump(db_amis,f, indent=4)
+        with open("json/friends.json", "w") as f:
+            json.dump(db_friends,f, indent=4)
         return HttpResponse("OK", request)
 
     else:
-        with open("json/amis.json", "r") as f:
-            db_amis = json.load(f)
-        liste_amis = db_amis.get(pseudo, False)
+        with open("json/friends.json", "r") as f:
+            db_friends = json.load(f)
+        liste_friends = db_friends.get(pseudo, False)
         
-        if not liste_amis:
-            print("marche1")
-            db_amis[pseudo] = [pseudo2]
+        if not liste_friends:
+            db_friends[pseudo] = [pseudo2]
 
         else:
-            print("marche2")
-            liste_amis.append(pseudo2)
-            db_amis[pseudo] = liste_amis
+            liste_friends.append(pseudo2)
+            db_friends[pseudo] = liste_friends
                
-        with open("json/amis.json", "w") as f:
-            json.dump(db_amis, f, indent=4)
+        with open("json/friends.json", "w") as f:
+            json.dump(db_friends, f, indent=4)
 
         return HttpResponse("OK", request)

@@ -15,11 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from api.views import ajout_amis, demande_musique, upload
+from api.views import add_friends, demande_musique, upload
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/get/pseudo=<str:pseudo>', demande_musique),
     path('api/post/pseudo=<str:pseudo>', upload),
-    path('api/get/ajout/pseudo=<str:pseudo>&pseudo2=<str:pseudo2>', ajout_amis)
+    path('api/get/ajout/pseudo=<str:pseudo>&pseudo2=<str:pseudo2>', add_friends)
 ]
